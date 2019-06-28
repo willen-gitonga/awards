@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{% load bootstrap4 %}
+{% load static %}
+{% block content %}
+{{block.super}}
+
+<div class="container">
+
+ {%for project in projects%}
+ 
+ <img src="{{project.image.url}}" alt="image" style="width:400px;height:400px;">
+</div>
+{% endfor %}
+
+{% endblock %}
