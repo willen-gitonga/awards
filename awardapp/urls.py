@@ -6,6 +6,9 @@ from . import views
 urlpatterns=[
     url(r'^$',views.home,name='homePage'),
     url(r'^upload$',views.upload,name='upload'),
+    url(r'^ratecontent/(\d+)',views.add_content, name='ratecontent'),
+    url(r'^ratedesign/(\d+)',views.add_design, name='ratedesign'),
+    url(r'^rateusability/(\d+)',views.add_usability, name='rateusability'),
 
 
 

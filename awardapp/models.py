@@ -37,24 +37,57 @@ class Project(models.Model):
     def find_project_id(cls, id):
         project_result = cls.objects.get(project_id=id)
         return project_result
+# START OF THE CLASSES FOR RATING 
 
-class Rate(models.Model):
+class DesignRating(models.Model):
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6,'6'),
+        (7,'7'),
+        (8,'8'),
+        (9,'9'),
+        (10,'10')
+    )
     project = models.ForeignKey('Project')
-    design = models.CharField(max_length=30)
-    usability = models.CharField(max_length=8)
-    creativity = models.CharField(max_length=8,blank=True,null=True)
     user = models.ForeignKey(User)
+    rating = models.IntegerField(choices=RATING_CHOICES, null=True)
+    
+class UsabilityRating(models.Model):
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6,'6'),
+        (7,'7'),
+        (8,'8'),
+        (9,'9'),
+        (10,'10')
+    )
+    project = models.ForeignKey('Project')
+    user = models.ForeignKey(User)
+    rating = models.IntegerField(choices=RATING_CHOICES, null=True)
     
 
-    def __str__(self):
-        return self.design
-
-
-    def save_rate(self):
-        self.save()
-
-     
-    @classmethod
-    def get_all_rating(cls):
-        ratings = cls.objects.all()
-        return ratings
+class ContentRating(models.Model):
+    RATING_CHOICES = (
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6,'6'),
+        (7,'7'),
+        (8,'8'),
+        (9,'9'),
+        (10,'10')
+    )
+    project = models.ForeignKey('Project')
+    user = models.ForeignKey(User)
+    rating = models.IntegerField(choices=RATING_CHOICES, null=True)
+    
