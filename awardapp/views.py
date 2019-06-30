@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Project,UsabilityRating,ContentRating,DesignRating
+from .models import Project,UsabilityRating,ContentRating,DesignRating,Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import NewProjectForm,DesignForm,UsabilityForm,ContentForm
@@ -33,22 +33,19 @@ def upload(request):
     return render(request, 'new-project.html', {"form": form, "user": current_user})
 
 
-# @login_required(login_url='/accounts/login')
-# def rate_project(request, project_id):
-#     project = Project.objects.get(pk=project_id)
-#     profile = User.objects.get(username=request.user)
-#     if request.method == 'POST':
-#         rateform = RateForm(request.POST, request.FILES)
-#         print(rateform.errors)
-#         if rateform.is_valid():
-#             rating = rateform.save(commit=False)
-#             rating.project = project
-#             rating.user = request.user
-#             rating.save()
-#             return redirect(home)
-#     else:
-#         rateform = RateForm()
-#     return render(request, 'rate.html', locals())
+@login_required(login_url='/accounts/login/')
+def profile(request,id):
+    profile=User.objects.get(username=request.user)
+    try:
+        user = request.user
+    except ObjectDoesNotExist:
+        return redirect(home)
+ 
+    images = Project.objects.filter(user=user)
+
+
+  
+    return render(request, 'profile.html', {"images":images, "user":user, "profile":profile})
 @login_required(login_url='/accounts/login')
 def add_usability(request, project_id):
     rati = UsabilityRating.objects.filter(project_id=project_id)
@@ -102,3 +99,18 @@ def add_content(request,  project_id):
         form = ContentForm()
 
     return render(request, 'content.html',locals())
+
+@login_required(login_url='/accounts/login')
+def search_results(request):
+    profile= Profile.objects.all()
+    project= Project.objects.all()
+    if 'Project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get("project")
+        searched_project = Project.search_by_profile(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',locals())
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request,'search.html',{"message":message})
