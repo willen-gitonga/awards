@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'awardapp',
     'bootstrap4',
     'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -74,6 +75,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'awardproj.wsgi.application'
 
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
