@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer, ProjectSerializer
 from rest_framework import status
+from .permissions import IsAdminOrReadOnly
 
 
 @login_required(login_url='/accounts/login/')
