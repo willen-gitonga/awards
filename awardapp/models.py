@@ -13,12 +13,12 @@ class Profile(models.Model):
 
     def save_profile(self):
         self.save()
+    
 
-    @classmethod
-    def search_profile(cls, search_term):
-        userprofile = Profile.objects.filter(user__icontains = search_term)
-        return userprofile
+    def delete_profile(self):
+        self.delete()
 
+   
 class Project(models.Model):
     image = models.ImageField(upload_to = 'images/')
     project_name = models.CharField(max_length =10)
@@ -26,22 +26,21 @@ class Project(models.Model):
     description =models.CharField(max_length =100)
     user= models.ForeignKey(User,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.bio
+
     def save_project(self):
         self.save()
+
+    def delete_project(self):
+        self.delete()
     
    
-    @classmethod
-    def get_all_projects(cls):
-        project = cls.objects.all()
-        return project
-
-    @classmethod
-    def find_project_id(cls, id):
-        project_result = cls.objects.get(project_id=id)
-        return project_result
+  
 # START OF THE CLASSES FOR RATING 
 
 class DesignRating(models.Model):
+   
     RATING_CHOICES = (
         (1, '1'),
         (2, '2'),
@@ -57,6 +56,15 @@ class DesignRating(models.Model):
     project = models.ForeignKey('Project')
     user = models.ForeignKey(User)
     rating = models.IntegerField(choices=RATING_CHOICES, null=True)
+
+    def __str__(self):
+        return self.rating
+
+    def save_designrating(self):
+        self.save()
+    
+    def delete_designrating(self):
+        self.delete()
     
 class UsabilityRating(models.Model):
     RATING_CHOICES = (
@@ -75,6 +83,14 @@ class UsabilityRating(models.Model):
     user = models.ForeignKey(User)
     rating = models.IntegerField(choices=RATING_CHOICES, null=True)
     
+    def __str__(self):
+        return self.rating
+
+    def save_usabilityrating(self):
+        self.save()
+    
+    def delete_usabilityrating(self):
+        self.delete()
 
 class ContentRating(models.Model):
     RATING_CHOICES = (
@@ -92,4 +108,13 @@ class ContentRating(models.Model):
     project = models.ForeignKey('Project')
     user = models.ForeignKey(User)
     rating = models.IntegerField(choices=RATING_CHOICES, null=True)
+
+    def __str__(self):
+        return self.rating
+
+    def save_contentrating(self):
+        self.save()
+    
+    def delete_contentrating(self):
+        self.delete()
     

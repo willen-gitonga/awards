@@ -1,64 +1,48 @@
 from django.test import TestCase
-from .models import Comment,Post,Profile
+from .models import ContentRating,Project,Profile
 from django.core.files.uploadedfile import SimpleUploadedFile
 
 
-class ContentRatingTestClass(TestCase):
-    # set up method to test for comments and instatiating the image object
-
+class ProjectTestCLass(TestCase):
+    '''
+    setup self instance of project
+    '''
     def setUp(self):
-        self.test_rates = ContentRating(rating= 'The good life',user= 'shaw',project='jpg')
-        self.test_rates.save()
-
-    # Testing instance 
-     
+        self.post = Project(project_name='awward',project_url='www.awards.com')
+    
+    ''' 
+    test instance of project
+    '''
     def test_instance(self):
-        self.assertTrue(isinstance(self.test_rates, ContentRating))
-    
-    # Testing the saving method 
-
-    def test_save_method(self):
-        rates = ContentRating.objects.all()
-        self.assertTrue(len(rates)>0)
-    #Tear down method    
-
-    def tearDown(self):
-        Comment.objects.all().delete()
-    
-     # Testing delete method 
-    def test_delete_comments(self):
-        self.test_comments.delete()
-        self.assertAlmostEqual(len(Comments.objects.all()), 0)
+        self.assertTrue(isinstance(self.post,Project))
 
 
-class ProfileTestClass(TestCase):
-    # set up method to test instantiation is correct
+    '''
+    test save project
+    '''
 
+    def test_save_image(self):
+        self.post.save_project()
+        project = Project.objects.all()
+        self.assertTrue(len(project)>0)
+
+class profileTestCLass(TestCase):
+    '''
+    setup self instance of profile
+    '''
     def setUp(self):
-        self.test_profile = Profile(bio='Master willen',profile_photo='imagejpg')
-        self.test_profile.save()
+        self.prof = Profile(Bio='Live the moment')
     
-    # Testing instance 
+    ''' 
+    test instance of profile
+    '''
     def test_instance(self):
-        self.assertTrue(isinstance(self.test_profile, Profile))
-    
-    # Testing the save method
-    def test_save_method(self):
-        profile = Profile.objects.all()
-        self.assertTrue(len(profile)>0)
-    
-    # Tear dowm method 
-    def tearDown(self):
-        Profile.objects.all().delete()
-    
-    # Testing delete method 
-    def test_delete_profile(self):
-        self.test_profile.delete()
-        self.assertEqual(len(Profile.objects.all()), 0) 
-    
+        self.assertTrue(isinstance(self.prof,Profile))
 
-  
-
+    def test_save_profile(self):
+        self.prof.save_profile()
+        bio = Profile.objects.all()
+        self.assertTrue(len(bio)>0)
 
     
 
