@@ -1,4 +1,4 @@
-from .models import Project,DesignRating,UsabilityRating,ContentRating
+from .models import Project,DesignRating,UsabilityRating,ContentRating,Profile
 from django import forms
 from django.forms import ModelForm, Textarea, IntegerField
 
@@ -25,3 +25,9 @@ class DesignForm(forms.ModelForm):
     class Meta:
         model = DesignRating
         fields = ['rating','user']
+
+class EditProfileForm(forms.ModelForm):
+  class Meta:
+      model=Profile
+      exclude=['user']
+

@@ -113,8 +113,8 @@ def add_content(request,  project_id):
 def search_results(request):
     profile = Profile.objects.all()
     project = Project.objects.all()
-    if 'Project' in request.GET and request.GET["project"]:
-        search_term = request.GET.get("project")
+    if 'profile' in request.GET and request.GET["profile"]:
+        search_term = request.GET.get("profile")
         searched_project = Project.search_by_profile(search_term)
         message = f"{search_term}"
 
