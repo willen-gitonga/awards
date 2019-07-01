@@ -15,7 +15,10 @@
                 <a class="nav-link" href="{%url 'upload'%}">Submit Project</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/accounts/password/change">Password Change</a>
             </li>
         </ul>
         <div class="navbar navbar-toggleable-md navbar-light bg-faded">
@@ -23,6 +26,11 @@
                 <input type="text" name="search" placeholder="Search.." id="input">
             </form>
         </div>
+        {%else%}
+        <li class="nav-item">
+            <a class="nav-link" href="/accounts/login">Password Change</a>
+        </li>
+
         {%endif%}
 
     </nav>
